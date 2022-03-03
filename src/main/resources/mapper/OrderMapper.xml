@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manage.computerroommanagement.mapper.OrderMapper">
+
+  <resultMap id="BaseResultMap" type="com.manage.computerroommanagement.entity.Order">
+    <id property="id" column="id" jdbcType="BIGINT"/>
+    <result property="labId" column="lab_id" jdbcType="BIGINT"/>
+    <result property="userId" column="user_id" jdbcType="BIGINT"/>
+    <result property="date" column="date" jdbcType="DATE"/>
+    <result property="time" column="time" jdbcType="INTEGER"/>
+    <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    <result property="status" column="status" jdbcType="INTEGER"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id
+    ,lab_id,user_id,
+        `date`,`time`,remark,
+        status
+  </sql>
+  <select id="getOrderList"
+    resultType="com.manage.computerroommanagement.entity.vo.OrderVo">
+    SELECT u.username,
+           l.name,
+           o.id,
+           o.date,
+           o.time,
+           o.remark,
+           o.`status`
+    FROM `order` o
+           JOIN users u ON o.user_id = u.id
+           JOIN lab l ON o.lab_id = l.id
+  </select>
+  <select id="getOrderListByStatus"
+          resultType="com.manage.computerroommanagement.entity.vo.OrderVo">
+    SELECT u.username,
+           l.name,
+           o.id,
+           o.date,
+           o.time,
+           o.remark,
+           o.`status`
+    FROM `order` o
+           JOIN users u ON o.user_id = u.id
+           JOIN lab l ON o.lab_id = l.id
+    where o.`status` = #{status}
+  </select>
+</mapper>
