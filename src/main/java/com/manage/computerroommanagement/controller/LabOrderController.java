@@ -27,12 +27,13 @@ public class LabOrderController {
      * 通过获取预约列表
      *
      * @param id 实验室id
+     * @param date  日期
+     *
      * @return list
      */
-    @GetMapping("/list/{id}")
-    public R<List<LabOrder>> list(@PathVariable Long id) {
-        List<LabOrder> list = labOrderService.list(
-                new LambdaQueryWrapper<LabOrder>().eq(LabOrder::getLabId, id));
+    @GetMapping("/list")
+    public R<List<LabOrder>> list(Long id, String date) {
+        List<LabOrder> list = labOrderService.listByIdOrDate(id, date);
         return R.success(list);
     }
 

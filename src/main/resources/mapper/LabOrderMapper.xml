@@ -1,28 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.manage.computerroommanagement.mapper.LabOrderMapper">
 
-    <resultMap id="BaseResultMap" type="com.manage.computerroommanagement.entity.LabOrder">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="labId" column="lab_id" jdbcType="BIGINT"/>
-            <result property="date" column="date" jdbcType="DATE"/>
-            <result property="timeA" column="time_a" jdbcType="INTEGER"/>
-            <result property="timeB" column="time_b" jdbcType="INTEGER"/>
-            <result property="timeC" column="time_c" jdbcType="INTEGER"/>
-            <result property="timeD" column="time_d" jdbcType="INTEGER"/>
-    </resultMap>
+  <resultMap id="BaseResultMap" type="com.manage.computerroommanagement.entity.LabOrder">
+    <id property="id" column="id" jdbcType="BIGINT"/>
+    <result property="labId" column="lab_id" jdbcType="BIGINT"/>
+    <result property="date" column="date" jdbcType="DATE"/>
+    <result property="timeA" column="time_a" jdbcType="INTEGER"/>
+    <result property="timeB" column="time_b" jdbcType="INTEGER"/>
+    <result property="timeC" column="time_c" jdbcType="INTEGER"/>
+    <result property="timeD" column="time_d" jdbcType="INTEGER"/>
+  </resultMap>
 
-    <sql id="Base_Column_List">
-        id,lab_id,date,
+  <sql id="Base_Column_List">
+    id,lab_id,date,
         time_a,time_b,time_c,
         time_d
-    </sql>
+  </sql>
   <select id="selectByLabId"
-          resultType="com.manage.computerroommanagement.entity.LabOrder">
-    select <include refid="Base_Column_List"/>
+    resultType="com.manage.computerroommanagement.entity.LabOrder">
+    select
+    <include refid="Base_Column_List"/>
     from lab_order
     where lab_id = #{labId} and date = #{date}
+  </select>
+  <select id="selectListByIdOrDate"
+    resultType="com.manage.computerroommanagement.entity.LabOrder">
+    select
+    <include refid="Base_Column_List"/>
+    from lab_order
+    <where>
+      <if test="id != null">
+        and lab_id = #{id}
+      </if>
+      <if test="date != null and date != 'null'">
+        and date = #{date}
+      </if>
+    </where>
   </select>
 </mapper>

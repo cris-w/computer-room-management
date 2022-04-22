@@ -19,4 +19,13 @@ public interface OrderService extends IService<Order> {
      * @return
      */
     List<OrderVo> getOrderList(Integer status);
+
+    /**
+     * 获取近七天实验室预约情况
+     *
+     * @param today
+     * @param last
+     * @return
+     */
+    List<Order> getOrderList(String today, String last);
 }

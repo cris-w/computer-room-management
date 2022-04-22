@@ -1,5 +1,6 @@
 package com.manage.computerroommanagement.entity.Bo;
 
+import java.util.List;
 import lombok.Data;
 
 /**
@@ -20,14 +21,9 @@ public class OrderBo {
     private Long userId;
 
     /**
-     * 预约日期
+     * 预约时间
      */
-    private Long date;
-
-    /**
-     * 预约时间段：1、2、3、4
-     */
-    private Integer time;
+    private List<OrderTime> orderTimeList;
 
     /**
      * 备注

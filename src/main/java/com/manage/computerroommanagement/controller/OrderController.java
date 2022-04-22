@@ -7,6 +7,7 @@ import com.manage.computerroommanagement.service.LabOrderService;
 import com.manage.computerroommanagement.service.OrderService;
 import com.manage.computerroommanagement.utils.R;
 import io.swagger.annotations.Api;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
@@ -40,15 +41,19 @@ public class OrderController {
     @PostMapping("/createOrder")
     public R<Void> createOrder(@RequestBody OrderBo orderBo) {
 
-        Order order = new Order();
-        order.setUserId(orderBo.getUserId());
-        order.setLabId(orderBo.getLabId());
-        Date date = new Date(orderBo.getDate());
-        order.setDate(date);
-        order.setTime(orderBo.getTime());
-        order.setRemark(orderBo.getRemark());
-        order.setStatus(0);
-        orderService.save(order);
+        List<Order> orders = new ArrayList<>();
+        orderBo.getOrderTimeList().forEach(val -> {
+            Order order = new Order();
+            order.setUserId(orderBo.getUserId());
+            order.setLabId(orderBo.getLabId());
+            Date date = new Date(val.getDate());
+            order.setDate(date);
+            order.setTime(val.getTime());
+            order.setRemark(orderBo.getRemark());
+            order.setStatus(0);
+            orders.add(order);
+        });
+        orderService.saveBatch(orders);
 
         return R.success("创建成功");
     }

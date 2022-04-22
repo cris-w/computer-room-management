@@ -1,5 +1,6 @@
 package com.manage.computerroommanagement.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.manage.computerroommanagement.entity.Order;
 import com.manage.computerroommanagement.entity.vo.OrderVo;
@@ -10,13 +11,13 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 /**
-* @author wjh
-* @description 针对表【order(实验室预约表)】的数据库操作Service实现
-* @createDate 2022-02-25 15:36:28
-*/
+ * @author wjh
+ * @description 针对表【order(实验室预约表)】的数据库操作Service实现
+ * @createDate 2022-02-25 15:36:28
+ */
 @Service
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order>
-    implements OrderService{
+        implements OrderService {
 
     @Resource
     private OrderMapper orderMapper;
@@ -24,13 +25,19 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order>
     @Override
     public List<OrderVo> getOrderList(Integer status) {
         List<OrderVo> list = null;
-        if(status == -1) {
+        if (status == -1) {
             list = orderMapper.getOrderList();
         } else {
             list = orderMapper.getOrderListByStatus(status);
         }
 
         return list;
+    }
+
+    @Override
+    public List<Order> getOrderList(String today, String last) {
+        return orderMapper.selectList(
+                new LambdaQueryWrapper<Order>().between(Order::getDate, last, today));
     }
 }
 

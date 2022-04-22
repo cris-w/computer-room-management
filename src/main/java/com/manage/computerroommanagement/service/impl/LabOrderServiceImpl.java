@@ -6,6 +6,7 @@ import com.manage.computerroommanagement.exception.MyException;
 import com.manage.computerroommanagement.service.LabOrderService;
 import com.manage.computerroommanagement.mapper.LabOrderMapper;
 import java.util.Date;
+import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +51,11 @@ public class LabOrderServiceImpl extends ServiceImpl<LabOrderMapper, LabOrder>
             labOrder.setTimeD(1);
         }
         labOrderMapper.updateById(labOrder);
+    }
+
+    @Override
+    public List<LabOrder> listByIdOrDate(Long id, String date) {
+        return labOrderMapper.selectListByIdOrDate(id, date);
     }
 }
 

@@ -3,6 +3,7 @@ package com.manage.computerroommanagement.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.manage.computerroommanagement.entity.LabOrder;
 import java.util.Date;
+import java.util.List;
 
 /**
 * @author wjh
@@ -19,4 +20,13 @@ public interface LabOrderService extends IService<LabOrder> {
      * @param time
      */
     void updateByLabId(Long labId, Date date, Integer time);
+
+    /**
+     * 通过id 或 日期 获取实验室排期表
+     *
+     * @param id
+     * @param date
+     * @return
+     */
+    List<LabOrder> listByIdOrDate(Long id, String date);
 }
