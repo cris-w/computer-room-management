@@ -31,6 +31,11 @@ public class Lab implements Serializable {
      */
     private String description;
 
+    /**
+     * 实验室人数
+     */
+    private Integer num;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

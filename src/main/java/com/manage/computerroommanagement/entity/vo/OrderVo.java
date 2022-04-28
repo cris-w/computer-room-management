@@ -12,8 +12,10 @@ public class OrderVo {
     private Long id;
     private String name;
     private String username;
+    private String subject;
     private Date date;
     private Integer time;
+    private Integer num;
     private String remark;
     private Integer status;
 }

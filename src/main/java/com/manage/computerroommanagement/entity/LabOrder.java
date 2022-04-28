@@ -33,22 +33,22 @@ public class LabOrder implements Serializable {
     private Date date;
 
     /**
-     * 时间段1预约情况：0 未预约， 1 预约
+     * 时间段1预约人数
      */
     private Integer timeA;
 
     /**
-     * 时间段2预约情况：0 未预约， 1 预约
+     * 时间段2预约人数
      */
     private Integer timeB;
 
     /**
-     * 时间段3预约情况：0未预约，1 预约
+     * 时间段3预约人数
      */
     private Integer timeC;
 
     /**
-     * 时间段4预约情况：0未预约，1 预约
+     * 时间段4预约人数
      */
     private Integer timeD;
 

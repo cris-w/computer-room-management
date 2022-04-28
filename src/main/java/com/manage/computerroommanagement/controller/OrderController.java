@@ -46,9 +46,11 @@ public class OrderController {
             Order order = new Order();
             order.setUserId(orderBo.getUserId());
             order.setLabId(orderBo.getLabId());
+            order.setSubject(orderBo.getSubject());
             Date date = new Date(val.getDate());
             order.setDate(date);
             order.setTime(val.getTime());
+            order.setNum(val.getNum());
             order.setRemark(orderBo.getRemark());
             order.setStatus(0);
             orders.add(order);
@@ -66,7 +68,7 @@ public class OrderController {
      */
     @GetMapping("/getByStatus/{status}")
     public R<List<OrderVo>> list(@PathVariable Integer status) {
-        List<OrderVo> list = orderService.getOrderList(status);;
+        List<OrderVo> list = orderService.getOrderList(status);
         return R.success(list);
     }
 
@@ -83,7 +85,7 @@ public class OrderController {
     }
 
     /**
-     * 更新
+     * 处理预约请求
      *
      * @param order order
      * @return ok
@@ -95,7 +97,8 @@ public class OrderController {
             Date date = o.getDate();
             Integer time = o.getTime();
             Long labId = o.getLabId();
-            labOrderService.updateByLabId(labId, date, time);
+            Integer num = o.getNum();
+            labOrderService.updateByLabId(labId, date, time, num);
         }
         orderService.updateById(order);
         return R.success("更新成功");

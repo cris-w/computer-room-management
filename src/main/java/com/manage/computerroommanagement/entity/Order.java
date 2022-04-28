@@ -33,6 +33,11 @@ public class Order implements Serializable {
     private Long userId;
 
     /**
+     * 预约学科
+     */
+    private String subject;
+
+    /**
      * 预约日期
      */
     private Date date;
@@ -42,6 +47,11 @@ public class Order implements Serializable {
      */
     @TableField("`time`")
     private Integer time;
+
+    /**
+     * 预约人数
+     */
+    private Integer num;
 
     /**
      * 备注

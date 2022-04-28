@@ -5,6 +5,8 @@ import com.manage.computerroommanagement.entity.LabOrder;
 import com.manage.computerroommanagement.exception.MyException;
 import com.manage.computerroommanagement.service.LabOrderService;
 import com.manage.computerroommanagement.mapper.LabOrderMapper;
+import com.manage.computerroommanagement.service.LabService;
+import com.manage.computerroommanagement.service.OrderService;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
@@ -21,34 +23,40 @@ public class LabOrderServiceImpl extends ServiceImpl<LabOrderMapper, LabOrder>
 
     @Resource
     private LabOrderMapper labOrderMapper;
+    @Resource
+    private LabService labService;
 
     @Override
-    public void updateByLabId(Long labId, Date date, Integer time) {
+    public void updateByLabId(Long labId, Date date, Integer time, Integer num) {
+        // 实验室总人数
+        int sum = labService.getById(labId).getNum();
         LabOrder labOrder = labOrderMapper.selectByLabId(labId, date);
         if (time == 1) {
+            // 时间段a 已经预约的人数
             Integer timeA = labOrder.getTimeA();
-            if(timeA == 1) {
-                throw new MyException(500, "该实验室已被预约，请拒绝此申请");
+            // 如果超过总人数
+            if (timeA + num > sum) {
+                throw new MyException(500, "该实验室空位不足，请拒绝此申请");
             }
-            labOrder.setTimeA(1);
+            labOrder.setTimeA(labOrder.getTimeA() + num);
         } else if (time == 2) {
             Integer timeB = labOrder.getTimeB();
-            if(timeB == 1) {
-                throw new MyException(500, "该实验室已被预约，请拒绝此申请");
+            if (timeB + num > sum) {
+                throw new MyException(500, "该实验室空位不足，请拒绝此申请");
             }
-            labOrder.setTimeB(1);
+            labOrder.setTimeB(labOrder.getTimeB() + num);
         } else if (time == 3) {
             Integer timeC = labOrder.getTimeC();
-            if(timeC == 1) {
-                throw new MyException(500, "该实验室已被预约，请拒绝此申请");
+            if (timeC + num > sum) {
+                throw new MyException(500, "该实验室空位不足，请拒绝此申请");
             }
-            labOrder.setTimeC(1);
+            labOrder.setTimeC(labOrder.getTimeC() + num);
         } else {
             Integer timeD = labOrder.getTimeD();
-            if(timeD == 1) {
-                throw new MyException(500, "该实验室已被预约，请拒绝此申请");
+            if (timeD + num > sum) {
+                throw new MyException(500, "该实验室空位不足，请拒绝此申请");
             }
-            labOrder.setTimeD(1);
+            labOrder.setTimeD(labOrder.getTimeD() + num);
         }
         labOrderMapper.updateById(labOrder);
     }

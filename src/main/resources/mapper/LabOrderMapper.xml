@@ -35,7 +35,7 @@
       <if test="id != null">
         and lab_id = #{id}
       </if>
-      <if test="date != null and date != 'null'">
+      <if test="date != null and date != ''">
         and date = #{date}
       </if>
     </where>

@@ -8,16 +8,18 @@
     <id property="id" column="id" jdbcType="BIGINT"/>
     <result property="labId" column="lab_id" jdbcType="BIGINT"/>
     <result property="userId" column="user_id" jdbcType="BIGINT"/>
+    <result property="subject" column="subject" jdbcType="VARCHAR"/>
     <result property="date" column="date" jdbcType="DATE"/>
     <result property="time" column="time" jdbcType="INTEGER"/>
+    <result property="num" column="num" jdbcType="INTEGER"/>
     <result property="remark" column="remark" jdbcType="VARCHAR"/>
     <result property="status" column="status" jdbcType="INTEGER"/>
   </resultMap>
 
   <sql id="Base_Column_List">
     id
-    ,lab_id,user_id,
-        `date`,`time`,remark,
+    ,lab_id,user_id,`subject`,
+        `date`,`time`,num,remark,
         status
   </sql>
   <select id="getOrderList"
@@ -25,8 +27,10 @@
     SELECT u.username,
            l.name,
            o.id,
+           o.subject,
            o.date,
            o.time,
+           o.num,
            o.remark,
            o.`status`
     FROM `order` o
@@ -38,8 +42,10 @@
     SELECT u.username,
            l.name,
            o.id,
+           o.subject,
            o.date,
            o.time,
+           o.num,
            o.remark,
            o.`status`
     FROM `order` o

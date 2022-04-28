@@ -13,13 +13,14 @@ import java.util.List;
 public interface LabOrderService extends IService<LabOrder> {
 
     /**
-     * 通过实验室id修改实验室状态
+     * 处理预约申请
      *
-     * @param labId
-     * @param date
-     * @param time
+     * @param labId 实验室id
+     * @param date 日期
+     * @param time 时间段
+     * @param num 预约人数
      */
-    void updateByLabId(Long labId, Date date, Integer time);
+    void updateByLabId(Long labId, Date date, Integer time,Integer num);
 
     /**
      * 通过id 或 日期 获取实验室排期表

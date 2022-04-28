@@ -20,4 +20,9 @@ public class OrderTime {
      * 预约时间段：1、2、3、4
      */
     private Integer time;
+
+    /**
+     * 预约人数
+     */
+    private Integer num;
 }

@@ -21,6 +21,11 @@ public class OrderBo {
     private Long userId;
 
     /**
+     * 预约学科
+     */
+    private String subject;
+
+    /**
      * 预约时间
      */
     private List<OrderTime> orderTimeList;
